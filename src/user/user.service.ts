@@ -12,6 +12,17 @@ export class UserService {
     return await this.userRepo.findAll({ query, filter, search });
   }
 
+  async findById(id: number) {
+    const user = await this.userRepo.findById(id);
+
+    if (user) {
+      return user;
+    } else {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+
+    }
+  }
+
   async create(data: CreateUserBodyDto) {
     if (
       await this.userRepo.isExist({

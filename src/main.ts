@@ -24,6 +24,7 @@ async function bootstrap() {
   app.enableCors({
     origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
     maxAge: 3600
   })
   const { PORT, DOCS_URL } = app.get(AppConfigService).env;

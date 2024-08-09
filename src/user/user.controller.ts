@@ -6,7 +6,8 @@ import {
   Param,
   Post,
   Put,
-  Query
+  Query,
+  UseGuards
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { success } from '@utils';
@@ -14,8 +15,9 @@ import { FindAllResponse, OneUserResponse, UpdateUserBodyDto } from './dto';
 import { CreateUserBodyDto } from './dto/create-user.dto';
 import { FindUserQueryDto } from './dto/find-user.dto';
 import { UserService } from './user.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 
-@ApiBearerAuth()
+@UseGuards(AuthGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) { }
@@ -30,6 +32,18 @@ export class UserController {
   })
   async findAll(@Query() query: FindUserQueryDto): Promise<FindAllResponse> {
     return success(await this.userService.findAll(query), 'List User');
+  }
+
+  @Get(':id')
+  @ApiOkResponse({
+    type: OneUserResponse,
+  })
+  @ApiOperation({
+    tags: ['User'],
+    summary: 'Get Detail User',
+  })
+  async show(@Param('id') id: string): Promise<OneUserResponse> {
+    return success(await this.userService.findById(+id));
   }
 
   @Post()

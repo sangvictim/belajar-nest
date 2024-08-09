@@ -43,6 +43,22 @@ export class UserRepository {
     };
   }
 
+  findById(id: number) {
+    return this.prisma.user.findFirst({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        username: true,
+        created_at: true,
+        updated_at: true,
+      }
+    });
+  }
+
   findAll({ query, filter, search }: UserFindAllParam) {
     return this.prisma.extended.user.paginate({
       limit: query.limit || 10,

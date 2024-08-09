@@ -21,6 +21,6 @@ const UserDetailSchema = UserSchema.pick({
   email: true,
   created_at: true,
 });
-export class OneUserResponse extends successResponseDto(UserDetailSchema) {}
-export class FindAllResponse extends paginateResponseDto(UserSchema) {}
-export class DeleteUserResponse extends successResponseDto(UserSchema) {}
+export class OneUserResponse extends successResponseDto(UserDetailSchema) { }
+export class FindAllResponse extends paginateResponseDto(UserSchema) { }
+export class DeleteUserResponse extends successResponseDto(UserSchema) { }
