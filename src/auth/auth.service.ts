@@ -12,7 +12,7 @@ export class AuthService {
   ) { }
 
 
-  async create(data: RegisterBodyDto) {
+  async register(data: RegisterBodyDto) {
     if (
       await this.authRepository.isExist({
         search: {
@@ -45,7 +45,7 @@ export class AuthService {
       throw new HttpException('Login failed', HttpStatus.UNAUTHORIZED);
     }
 
-    const payload = { id: user?.id };
+    const payload = { sub: user?.id, id: user?.id, email: user?.email };
 
     let response = {
       id: user?.id,

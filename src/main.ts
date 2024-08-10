@@ -36,7 +36,6 @@ async function bootstrap() {
         .setDescription('The Nest ESM Prisma API Documentation')
         .addBearerAuth()
         .setVersion(version)
-        .addTag('api')
         .build(),
     );
     SwaggerModule.setup(

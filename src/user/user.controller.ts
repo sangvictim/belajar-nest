@@ -11,13 +11,14 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { success } from '@utils';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { FindAllResponse, OneUserResponse, UpdateUserBodyDto } from './dto';
 import { CreateUserBodyDto } from './dto/create-user.dto';
 import { FindUserQueryDto } from './dto/find-user.dto';
 import { UserService } from './user.service';
-import { AuthGuard } from 'src/auth/auth.guard';
 
 @UseGuards(AuthGuard)
+@ApiBearerAuth()
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) { }
